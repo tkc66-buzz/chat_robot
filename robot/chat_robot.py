@@ -17,3 +17,12 @@ class ChatRobot(object):
 
         """
         print('こんにちは！私は{0}です。あなたの名前はなんですか？'.format(self.name))
+
+    def ask_restaurant(self, guest_name):
+        """
+        好きなレストランを尋ねる
+
+        :param guest_name: クライアントの名前
+
+        """
+        print('{0}さん。どこのレストランが好きですか?'.format(guest_name))

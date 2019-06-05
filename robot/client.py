@@ -14,6 +14,9 @@ class Client(object):
 
     def chat_start(self):
         self.robot.greeting()
+        guest_name = input('>>>')
+        self.robot.ask_restaurant(guest_name)
+        restaurant_name = input('>>>')
 
 
 if __name__ == '__main__':
