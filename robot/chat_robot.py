@@ -1,3 +1,6 @@
+import csv
+
+
 class ChatRobot(object):
     """
     クライアントと交信するチャットロボット
@@ -10,6 +13,7 @@ class ChatRobot(object):
         :param name: ロボット名
         """
         self.name = name
+        self.restaurant_dict = self.load_restaurant()
 
     def greeting(self):
         """
@@ -33,3 +37,19 @@ class ChatRobot(object):
 
         """
         print('{0}さん。ありがとうございました。\n良い一日を！さようなら。'.format(guest_name))
+
+    def load_restaurant(self):
+        """
+        レストラン情報を読み込む
+
+        :return restaurant_dict:レストラン一覧辞書
+
+        """
+        restaurant_dict = {}
+
+        with open('./restaurant.txt', 'r') as f:
+            reader = csv.reader(f)
+            restaurant_dict = {}
+            for restaurant_name, restaurant_number in reader:
+                restaurant_dict[restaurant_name] = restaurant_number
+        return restaurant_dict

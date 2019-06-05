@@ -17,7 +17,7 @@ class Client(object):
         guest_name = input('>>>')
         self.robot.ask_restaurant(guest_name)
         restaurant_name = input('>>>')
-        # self.robot.update_restaurant(restaurant_name)
+        self.robot.update_restaurant(restaurant_name)
         self.robot.good_bye(guest_name)
 
 
