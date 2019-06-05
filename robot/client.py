@@ -10,10 +10,10 @@ class Client(object):
         """
     　　チャットロボットを作成
         """
-        robot = chat_robot.ChatRobot(name='Roboko')
+        self.robot = chat_robot.ChatRobot(name='Roboko')
 
     def chat_start(self):
-        print('chat start')
+        self.robot.greeting()
 
 
 if __name__ == '__main__':
