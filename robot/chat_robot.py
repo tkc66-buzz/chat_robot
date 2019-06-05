@@ -26,3 +26,10 @@ class ChatRobot(object):
 
         """
         print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
+
+    def good_bye(self, guest_name):
+        """
+        交信終了時の会話
+
+        """
+        print('{0}さん。ありがとうございました。\n良い一日を！さようなら。'.format(guest_name))
