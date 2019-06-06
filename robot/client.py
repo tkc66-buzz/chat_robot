@@ -15,8 +15,14 @@ class Client(object):
     def chat_start(self):
         self.robot.greeting()
         guest_name = input('>>>')
-        self.robot.ask_restaurant(guest_name)
-        restaurant_name = input('>>>')
+        sorted_restaurant_dict = self.robot.ask_restaurant(guest_name)
+        # 既存のレストラン名がない場合レストラン名を入力してもらう
+        NO_RESTAURANT = 0
+        if sorted_restaurant_dict == NO_RESTAURANT:
+            restaurant_name = input('>>>')
+        else:
+            self.robot.various_question(sorted_restaurant_dict)
+
         self.robot.update_restaurant(restaurant_name)
         self.robot.good_bye(guest_name)
 

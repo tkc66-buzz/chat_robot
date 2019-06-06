@@ -27,9 +27,35 @@ class ChatRobot(object):
         好きなレストランを尋ねる
 
         :param guest_name: クライアントの名前
-
+        :return sorted_restaurant_dict:ソートした辞書
         """
-        print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
+        NO_RESTAURANT = 1
+
+        sorted_restaurant_dict = {}
+        if len(self.restaurant_dict) == NO_RESTAURANT:
+            print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
+        else:
+            sorted_restaurant_dict = sorted(self.restaurant_dict().items(), key=lambda x: x[1])
+
+        return sorted_restaurant_dict
+
+    def various_question(sorted_restaurant_dict):
+        """
+        レストラン名によって質問を変える
+        :return: レストラン名が一つならTrue違うならFalse
+        """
+        # レストランが一つしかない
+        ONLY_REATAURANT = True
+        max_val = max(sorted_restaurant_dict.values())
+        keys_of_max_val = [key for key in sorted_restaurant_dict if sorted_restaurant_dict[key] == max_val]
+
+        ONLY = 1
+
+        if len(sorted_restaurant_dict) == ONLY or len(max_val) == len(sorted_restaurant_dict):
+            print("私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]")
+            return ONLY_REATAURANT
+
+
 
     def good_bye(self, guest_name):
         """
@@ -45,11 +71,11 @@ class ChatRobot(object):
         :return restaurant_dict:レストラン一覧辞書
 
         """
-        restaurant_dict = {}
 
         with open('./restaurant.txt', 'r') as f:
             reader = csv.reader(f)
             restaurant_dict = {}
             for restaurant_name, restaurant_number in reader:
                 restaurant_dict[restaurant_name] = restaurant_number
+            del restaurant_dict["NAME"]
         return restaurant_dict
