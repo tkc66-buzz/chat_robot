@@ -1,3 +1,4 @@
 NAME,COUNT
-Japanese Apple,1
+Japanese Apple,2
 Yahoo,3
+kokookoko,2
