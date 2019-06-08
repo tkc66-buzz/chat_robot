@@ -13,6 +13,9 @@ class Client(object):
         self.robot = chat_robot.ChatRobot(name='Roboko')
 
     def chat_start(self):
+        """
+       チャットロボットの最初の会話
+        """
         self.robot.greeting()
         guest_name = input('>>>')
         sorted_restaurant_list = self.robot.ask_restaurant(guest_name)
@@ -22,10 +25,11 @@ class Client(object):
             question_restaurant_name = self.robot.various_question(sorted_restaurant_list)
             yn_answer = input('>>>')
             self.robot.update_count(question_restaurant_name, yn_answer, guest_name)
-        restaurant_name = input('>>>')
-        self.robot.add_restaurant(restaurant_name)
-        self.robot.update_restaurant()
-        self.robot.good_bye(guest_name)
+        else:
+            restaurant_name = input('>>>')
+            self.robot.add_restaurant(restaurant_name)
+            self.robot.update_restaurant()
+            self.robot.good_bye(guest_name)
 
 
 if __name__ == '__main__':

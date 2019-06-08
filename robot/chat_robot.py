@@ -34,7 +34,10 @@ class ChatRobot(object):
         if len(self.restaurant_dict) == NO_RESTAURANT:
             print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
         else:
-            sorted_restaurant_list = sorted(self.restaurant_dict.items(), key=lambda x: x[1])
+            sorted_restaurant_list = sorted(self.restaurant_dict.items(), key=lambda x: x[1], reverse=True)
+
+        if len(sorted_restaurant_list) != NO_RESTAURANT:
+            print('私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]'.format(sorted_restaurant_list[0][0]))
         return sorted_restaurant_list
 
     def various_question(self, sorted_restaurant_list):
@@ -44,14 +47,14 @@ class ChatRobot(object):
         """
         # レストランが一つしかない
         ONLY_REATAURANT = False
-
-        max_val = max(sorted_restaurant_list)
-
-        keys_of_max_val = [value for value in sorted_restaurant_list if value[1] == max_val[1]]
+        threshold = 0
+        max_values = [values[1] for values in sorted_restaurant_list if int(values[1]) > threshold]
+        max_val = max(max_values)
+        keys_of_max_val = [value for value in sorted_restaurant_list if value[1] == max_val]
 
         ONLY = 1
 
-        if len(sorted_restaurant_list) == ONLY or len(max_val) - 1 == len(keys_of_max_val):
+        if len(sorted_restaurant_list) == ONLY or len(sorted_restaurant_list) == len(keys_of_max_val):
             print("私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]".format(sorted_restaurant_list[0][0]))
             ONLY_REATAURANT = True
         return ONLY_REATAURANT, sorted_restaurant_list[0]
