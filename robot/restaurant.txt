@@ -1,4 +1,4 @@
 NAME,COUNT
 Japanese Apple,2
-Yahoo,3
-kokookoko,2
+American Orange,2
+cool one,1

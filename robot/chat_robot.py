@@ -36,13 +36,13 @@ class ChatRobot(object):
         else:
             sorted_restaurant_list = sorted(self.restaurant_dict.items(), key=lambda x: x[1], reverse=True)
 
-        if len(sorted_restaurant_list) != NO_RESTAURANT:
-            print('私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]'.format(sorted_restaurant_list[0][0]))
         return sorted_restaurant_list
 
-    def various_question(self, sorted_restaurant_list):
+    def various_question(self, sorted_restaurant_list, guest_name):
         """
         レストラン名によって質問を変える
+        :param sorted_restaurant_list: ソートした辞書
+        :param guest_name: 顧客名称
         :return: レストラン名が一つならTrue違うならFalse
         """
         # レストランが一つしかない
@@ -55,28 +55,29 @@ class ChatRobot(object):
         ONLY = 1
 
         if len(sorted_restaurant_list) == ONLY or len(sorted_restaurant_list) == len(keys_of_max_val):
-            print("私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]".format(sorted_restaurant_list[0][0]))
+
+            for vals in keys_of_max_val:
+                print("私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]".format(vals[0]))
+                yn_answer = input('>>>')
+                if yn_answer == 'Yes':
+                    self.restaurant_dict[vals[0]] = int(self.restaurant_dict[vals[1]]) + 1
+                elif yn_answer != 'No':
+                    print('不正な値が入力されました')
             ONLY_REATAURANT = True
-        return ONLY_REATAURANT, sorted_restaurant_list[0]
 
-    def update_count(self, question_restaurant_name, yn_answer, guest_name):
-        """
-        レストラン名をアップデート
-
-        :param question_restaurant_name: 質問でしたレストラン名
-        :param yn_answer: Yes or No
-        :param guest_name: 顧客名
-        :return:
-        """
-        print()
-        if yn_answer == 'Yes':
-            self.restaurant_dict[question_restaurant_name[1][0]] = int(
-                self.restaurant_dict[question_restaurant_name[1][0]]) + 1
-            print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
-        elif yn_answer == 'No':
-            print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
         else:
-            print('不正な値が入力されました。\n{0}さん。どこのレストランが好きですか?'.format(guest_name))
+
+            for vals in sorted_restaurant_list:
+                print("私のおススメのレストランは、{0}です。\nこのレストランは好きですか?[Yes/No]".format(vals[0]))
+                yn_answer = input('>>>')
+                if yn_answer == 'Yes':
+                    self.restaurant_dict[vals[0]] = int(self.restaurant_dict[vals[0]]) + 1
+                elif yn_answer != 'No':
+                    print('不正な値が入力されました')
+
+        print('{0}さん。どこのレストランが好きですか?'.format(guest_name))
+
+        return ONLY_REATAURANT, sorted_restaurant_list[0]
 
     def add_restaurant(self, restaurant_name):
         """
