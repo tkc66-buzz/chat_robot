@@ -22,14 +22,21 @@ class Client(object):
         # 既存のレストラン名がない場合レストラン名を入力してもらう
         NO_RESTAURANT = 0
         if len(sorted_restaurant_list) != NO_RESTAURANT:
-            question_restaurant_name = self.robot.various_question(sorted_restaurant_list)
-            yn_answer = input('>>>')
-            self.robot.update_count(question_restaurant_name, yn_answer, guest_name)
+            self.robot.various_question(sorted_restaurant_list, guest_name)
+            add_restaurant_name = input('>>>')
+            # レストラン名が同じならば＋１
+            if add_restaurant_name in self.robot.restaurant_dict:
+                self.robot.restaurant_dict[add_restaurant_name] = int(
+                    self.robot.restaurant_dict[add_restaurant_name]) + 1
+            else:
+                self.robot.restaurant_dict[add_restaurant_name] = 1
+
         else:
             restaurant_name = input('>>>')
             self.robot.add_restaurant(restaurant_name)
-            self.robot.update_restaurant()
-            self.robot.good_bye(guest_name)
+
+        self.robot.update_restaurant()
+        self.robot.good_bye(guest_name)
 
 
 if __name__ == '__main__':
